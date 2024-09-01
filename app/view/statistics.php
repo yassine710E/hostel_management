@@ -7,11 +7,11 @@ require __DIR__."/layout/header.php";
     
 ?>
 
-<a href="#">capaciter_chambre <?= $data['capaciter_chambre'] ?></a><br>
-<a href="#">chambre <?= $data['chambre'] ?></a><br>
-<a href="#">client <?= $data['client'] ?></a><br>
-<a href="#">reservation <?= $data['reservation'] ?></a><br>
-<a href="#">tarif_chambre <?= $data['tarif_chambre'] ?></a><br>
+<a href="/public/capacite_chambre">capaciter_chambre <?= $data['capaciter_chambre'] ?></a>
+<a href="#">chambre <?= $data['chambre'] ?></a>
+<a href="#">client <?= $data['client'] ?></a>
+<a href="#">reservation <?= $data['reservation'] ?></a>
+<a href="#">tarif_chambre <?= $data['tarif_chambre'] ?></a>
 <a href="#">type_chambre <?= $data['type_chambre'] ?></a><br><br><br><br>
 
 

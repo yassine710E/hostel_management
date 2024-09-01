@@ -21,7 +21,21 @@ class Router
          {
              $URI=substr($URI,strlen("/public"));
          }
+        
+         if (sizeof(explode("/",$URI))>3) {
 
+            $lastSlashPosition = strrpos($URI, '/');
+
+            self::$args[0]=(int)substr($URI,$lastSlashPosition+1);
+
+            
+
+            $URI=substr($URI, 0, $lastSlashPosition);
+
+
+         }
+
+         
 
          if (isset(ROUTES[$URI])) 
          {
@@ -40,10 +54,10 @@ class Router
                   }
                   
          }
-         else
-         {
-             header("location:/public/error");
-         }
+        //  else
+        //  {
+        //      header("location:/public/error");
+        //  }
 
         
     }
