@@ -33,7 +33,18 @@ define("ROUTES",
 
     "/types_chambres/modify"=>['types_chambres_Controller',"modify_types_chambres"],
     
-    "/types_chambres/consulter"=>['types_chambres_Controller',"consulter_type_chambre"]
+    "/types_chambres/consulter"=>['types_chambres_Controller',"consulter_type_chambre"],
+
+    
+    //tarifs Chambres
+    
+    "/tarifs_chambres"=>['tarifs_chambres_Controller',"index_tarifs_chambres"],
+
+    "/tarifs_chambres/add"=>['tarifs_chambres_Controller',"add_tarifs_chambres"],
+
+    "/tarifs_chambres/delete"=>['tarifs_chambres_Controller',"delete_tarifs_chambres"],
+
+    "/tarifs_chambres/modify"=>['tarifs_chambres_Controller','modify_tarifs_chambres']
 
 ]);
 

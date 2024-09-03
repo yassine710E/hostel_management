@@ -11,7 +11,7 @@ require __DIR__."/layout/header.php";
 <a href="#">chambre <?= $data['chambre'] ?></a>
 <a href="#">client <?= $data['client'] ?></a>
 <a href="#">reservation <?= $data['reservation'] ?></a>
-<a href="#">tarif_chambre <?= $data['tarif_chambre'] ?></a>
+<a href="/tarifs_chambres">tarif_chambre <?= $data['tarif_chambre'] ?></a>
 <a href="/types_chambres">type_chambre <?= $data['type_chambre'] ?></a><br><br><br><br>
 
 
