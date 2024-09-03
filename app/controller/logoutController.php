@@ -1,16 +1,22 @@
 <?php
 
+
+// Controller class for handling user logout
 class logoutController 
 {
-    function logout(){
-
-         session_start();
+    // Method to handle user logout
+    function logout()
+    {
+        // Start the session (required to access session data)
+        session_start();
         
-         session_destroy();
+        // Destroy the session to log the user out
+        session_destroy();
         
-         header("location:/public/");
+        // Redirect the user to the home page (or login page)
+        header("location:/public/");
         
-         exit();
-
+        // Ensure no further code is executed after redirection
+        exit();
     }
 }

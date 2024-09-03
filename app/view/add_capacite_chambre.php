@@ -6,7 +6,6 @@ require __DIR__."/layout/header.php";
 
     
 ?>
-
 <form action="" method="post">
        <fieldset>
        <legend>Add capacite chambre</legend>

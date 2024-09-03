@@ -1,29 +1,39 @@
 <?php
 
+// Require the base model class
 require __DIR__."/../../core/Model.php";
 
-
+// Model class for handling user login data
 class loginModel extends Model
 {
-    static function data_validation($username,$password)
+    // Static method to validate user credentials
+    static function data_validation($username, $password)
     {
-          $PDO=self::database_connection();
-          
-          if ($PDO) 
-          {
-            $stmt=$PDO->prepare("SELECT *  FROM  user_app WHERE username=? and password=?");
-            
-            $stmt->execute([$username,$password]);
+        // Get a database connection
+        $PDO = self::database_connection();
 
-            if ($stmt->rowCount()>0) 
+        if ($PDO) 
+        {
+            // Prepare the SQL query to check for the user with the provided username and password
+            $stmt = $PDO->prepare("SELECT * FROM user_app WHERE username=? AND password=?");
+
+            // Execute the query with the provided username and password
+            $stmt->execute([$username, $password]);
+
+            // Check if any matching user is found
+            if ($stmt->rowCount() > 0) 
             {
-                    return true;                
+                // Return true if user exists
+                return true;                
             }
-            else{
-                print "<pre>not valid :User Not Found Try Again</pre>";
+            else
+            {
+                // Display an error message if no user is found
+                print "<pre>Not valid: User not found. Try again.</pre>";
 
+                // Return false indicating the user was not found
                 return false;
             }
-          }
+        }
     }
 }

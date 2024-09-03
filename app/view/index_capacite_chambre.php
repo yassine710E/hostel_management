@@ -6,6 +6,7 @@ require __DIR__."/layout/header.php";
 
     
 ?>
+<a href="/dashboard">Dashboard</a><br><br>
 <a href="/public/capacite_chambre/add">add capacite chambre</a>
 
 <table>
@@ -21,7 +22,7 @@ require __DIR__."/layout/header.php";
             <td><?= $capacite->titre_capacite?></td>
             <td><?= $capacite->numero_capacite?></td>
             <td><a href="/public/capacite_chambre/delete/<?= $capacite->id_capacite ?>">supprimez</a>
-            <a href="/public/capaciter_chambre/modify/<?= $capacite->id_capacite ?>">modifier</a>
+            <a href="/public/capacite_chambre/modify/<?= $capacite->id_capacite ?>">modifier</a>
              </td>
 
         </tr>
