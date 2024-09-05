@@ -57,10 +57,13 @@ class tarifs_chambres_Controller extends Controller
         if (isset($_POST['go'])) {
             if (
                 is_numeric($_POST['prix_base_nuit']) &&
-                is_numeric($_POST['prix_base_passage']) &&
-                is_numeric($_POST['N_prix_nuit']) &&
-                is_numeric($_POST['N_prix_passage'])
+                is_numeric($_POST['prix_base_passage']) 
             ) {
+                $_POST['N_prix_nuit']=$_POST['N_prix_nuit']==""?0:$_POST['N_prix_nuit'];
+
+                $_POST['N_prix_passage']=$_POST['N_prix_passage']==""?0:$_POST['N_prix_passage'];
+                
+
                 return [
                     $_POST['prix_base_nuit'],
                     $_POST['prix_base_passage'],

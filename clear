@@ -1,0 +1,23 @@
+[33mcommit 6ccbad29386f26c3fed1861842f9d5bf9c5f5f0d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: yassine chabane <yassinechabane71@gmail.com>
+Date:   Tue Sep 3 21:06:56 2024 +0100
+
+    tarifs chambres
+
+[33mcommit beaecb5d68fe971c1556849959d5f2e4f197e942[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: yassine chabane <yassinechabane71@gmail.com>
+Date:   Tue Sep 3 03:38:39 2024 +0100
+
+    types chambres
+
+[33mcommit e24d95569dbdd4b902f6057116340c255228471c[m
+Author: yassine chabane <yassinechabane71@gmail.com>
+Date:   Sun Sep 1 15:30:10 2024 +0100
+
+    capacite chambre
+
+[33mcommit 763a3c0969f4dad52fd14b3da385e9ca9deb2cee[m
+Author: yassine chabane <yassinechabane71@gmail.com>
+Date:   Sat Aug 31 21:46:04 2024 +0100
+
+    create db , login system and dashboard

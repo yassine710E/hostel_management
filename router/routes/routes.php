@@ -44,7 +44,21 @@ define("ROUTES",
 
     "/tarifs_chambres/delete"=>['tarifs_chambres_Controller',"delete_tarifs_chambres"],
 
-    "/tarifs_chambres/modify"=>['tarifs_chambres_Controller','modify_tarifs_chambres']
+    "/tarifs_chambres/modify"=>['tarifs_chambres_Controller','modify_tarifs_chambres'],
+
+    //clients
+
+    "/clients"=>["clients_Controller","index_clients"],
+
+    "/clients/add"=>['clients_Controller',"add_clients"],
+
+    "/clients/delete"=>['clients_Controller',"delete_clients"],
+
+    "/clients/modify"=>['clients_Controller',"modify_clients"],
+
+    "/clients/register"=>['clients_Controller',"register_clients"],
+
+
 
 ]);
 
