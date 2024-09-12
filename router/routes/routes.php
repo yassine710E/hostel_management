@@ -58,6 +58,18 @@ define("ROUTES",
 
     "/clients/register"=>['clients_Controller',"register_clients"],
 
+    //chambres
+    
+    "/chambres"=>['chambres_Controller',"index_chambres"],
+
+    "/chambres/add"=>['chambres_Controller','add_chambres'],
+
+    "/chambres/delete"=>['chambres_Controller',"delete_chambre"],
+
+    "/chambres/modify"=>['chambres_Controller','modify_chambre']
+
+    
+
 
 
 ]);

@@ -47,7 +47,7 @@ class types_chambres_Controller extends Controller
         $obj_type_chambre = types_chambres_Model::get_type_chambre($id);
         parent::load_view(__FUNCTION__, $obj_type_chambre);
 
-        $formData = $this->form_validation_for_modification($obj_type_chambre->photo_type_chambre);
+        $formData = $this->form_validation($obj_type_chambre->photo_type_chambre);
         if ($formData) {
             types_chambres_Model::modify_types_chambres($id, $formData[0], $formData[1], $formData[2]);
             header("location:/public/types_chambres");
@@ -69,20 +69,32 @@ class types_chambres_Controller extends Controller
         }
     }
 
-    function form_validation()
+    function form_validation($old_photo=null)
     {
         if (isset($_POST['go'])) {
-            if ($_POST['type_chambre'] <> "" && !empty($_FILES['photo']['name'])) {
-                $uploadDir = 'C:\xampp\htdocs\hostel_management\public\pictures\types_chambres\\';
-                $fileName = basename($_FILES['photo']['name']);
-                $uploadFile = $uploadDir . $fileName;
-        
-                move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile);
+            if ($_POST['type_chambre'] <> "" && (!empty($_FILES['photo']['name']) ||  $old_photo <> null )) {
+                
+                if (!empty($_FILES['photo']['name'])) 
+                {
+                    $uploadDir = 'C:\xampp\htdocs\hostel_management\public\pictures\types_chambres\\';
+                
+                    $old_photo = basename($_FILES['photo']['name']);
+    
+    
+    
+                    $uploadFile = $uploadDir . $old_photo;
+            
+                    move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile);                }
+                
+
                    
                 return [
+                
                     $_POST['type_chambre'],
+                
                     $_POST['description_chambre'],
-                    $fileName,
+                
+                    $old_photo,
                 ];
             } else {
                 print "<pre>Not valid: The following information is required: type chambre and image</pre>";
@@ -91,27 +103,4 @@ class types_chambres_Controller extends Controller
         }
     }
 
-    function form_validation_for_modification($old_photo)
-    {
-        if (isset($_POST['go'])) {
-            if ($_POST['type_chambre'] <> "") {
-                if (!empty($_FILES['photo']['name'])) {
-                    $uploadDir = 'C:\xampp\htdocs\hostel_management\public\pictures\types_chambres\\';
-                    $old_photo = basename($_FILES['photo']['name']);
-                    $uploadFile = $uploadDir . $old_photo;
-        
-                    move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile);
-                }
-
-                return [
-                    $_POST['type_chambre'],
-                    $_POST['description_chambre'],
-                    $old_photo,
-                ];
-            } else {
-                print "<pre>Not valid: The following information is required: type chambre</pre>";
-                return false;
-            }
-        }
-    }
 }

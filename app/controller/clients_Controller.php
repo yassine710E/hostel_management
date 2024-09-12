@@ -72,11 +72,13 @@ class clients_Controller extends Controller
     function add_clients()
     {
         parent::verifyHomeSession();
+
         parent::load_view(__FUNCTION__);
 
         if ($this->form_validation()) 
         {
             clients_Model::insert_client($this->form_validation());
+        
             header('location:/clients');
         }
          
