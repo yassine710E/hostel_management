@@ -13,12 +13,13 @@ class chambres_Controller extends Controller
        
         parent::verifyHomeSession();
 
+        
         $chambres=chambres_Model::get_chambres();
 
         
-
         $searchData=self::search_validation_form();
 
+        
         if ($searchData) 
         {
           if(chambres_Model::search_chambre($searchData))
@@ -27,10 +28,6 @@ class chambres_Controller extends Controller
             $chambres=chambres_Model::search_chambre($searchData);
 
           };
-        
-        
-
-
         }
 
         parent::load_view(__FUNCTION__,$chambres);

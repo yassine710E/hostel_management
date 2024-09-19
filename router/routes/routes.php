@@ -66,7 +66,15 @@ define("ROUTES",
 
     "/chambres/delete"=>['chambres_Controller',"delete_chambre"],
 
-    "/chambres/modify"=>['chambres_Controller','modify_chambre']
+    "/chambres/modify"=>['chambres_Controller','modify_chambre'],
+
+    //reservations
+    
+    "/reservations"=>['reservations_Controller',"index_reservations"],
+    
+    "/reservations/add"=>['reservations_Controller',"add_reservations"],
+
+    "/reservations/validee"=>['reservations_Controller','valider_reservation']
 
     
 

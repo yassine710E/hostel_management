@@ -51,7 +51,7 @@ require __DIR__."/layout/header.php";
 
         <!-- Other Details -->
         <label for="autres_details">Other Details:</label>
-        <textarea id="autres_details" name="autres_details" rows="4" cols="50" value="<?= $data->autres_details ?>"></textarea><br><br>
+        <textarea id="autres_details" name="autres_details" rows="4" cols="50" ><?= $data->autres_details ?></textarea><br><br>
 
         <!-- Submit Button -->
         <input type="submit" value="modify client" name="go">

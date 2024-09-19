@@ -22,7 +22,8 @@ class Router
              $URI=substr($URI,strlen("/public"));
          }
         
-         if (sizeof(explode("/",$URI))>3) {
+         if (sizeof(explode("/",$URI))==4) 
+         {
 
             $lastSlashPosition = strrpos($URI, '/');
 
@@ -32,6 +33,16 @@ class Router
 
             $URI=substr($URI, 0, $lastSlashPosition);
 
+
+         }
+         if (sizeof(explode("/",$URI))>4) 
+         {
+            for ($i=3; $i <count(explode("/",$URI)) ; $i++) 
+            { 
+                self::$args[ $i-3 ] = (explode("/",$URI))[$i];
+            }
+
+            $URI=substr($URI,0,21);
 
          }
 
