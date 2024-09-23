@@ -8,7 +8,8 @@ require __DIR__."/../model/capaciter_chambre_Model.php";
 
 // Controller class for managing room capacities
 class capacite_chambre_Controller extends Controller
-{
+{    
+    public $error='';
     // Method to display the list of room capacities
     function index_capacite_chambre()
     {    
@@ -42,8 +43,6 @@ class capacite_chambre_Controller extends Controller
         // Verify user session for accessing the home page
         parent::verifyHomeSession();
 
-        // Load the add capacity view
-        parent::load_view(__FUNCTION__);
 
         // Validate the form input
         if ($this->form_validation()) 
@@ -54,6 +53,10 @@ class capacite_chambre_Controller extends Controller
             // Redirect to the capacities page
             header("location:/public/capacite_chambre");
         }
+
+                // Load the add capacity view
+                parent::load_view(__FUNCTION__,['error'=>$this->error]);
+
     }
 
     // Method to modify an existing room capacity
@@ -63,7 +66,6 @@ class capacite_chambre_Controller extends Controller
         parent::verifyHomeSession();
 
         // Load the modify capacity view with the capacity details
-        parent::load_view(__FUNCTION__, capaciter_chambre_Model::get_capacity_room($id));
 
         // Validate the form input
         if ($this->form_validation()) 
@@ -74,6 +76,12 @@ class capacite_chambre_Controller extends Controller
             // Redirect to the capacities page
             header("location:/public/capacite_chambre");
         }
+        $room_info['info_id']=capaciter_chambre_Model::get_capacity_room($id);
+        
+        $room_info['error']=$this->error;
+        
+         parent::load_view(__FUNCTION__, $room_info);
+
     }
 
     // Method to validate the form input for adding or modifying capacities
@@ -89,7 +97,7 @@ class capacite_chambre_Controller extends Controller
                 return [$_POST['titre_capacite'], $_POST['numero_capacite']];
             } else {
                 // Print an error message if validation fails
-                print "<pre>not valid: The following information is required: Capacity number</pre>";
+                $this->error="not valid: The following information is required: Capacity number";
                 
                 // Return false indicating validation failure
                 return false;

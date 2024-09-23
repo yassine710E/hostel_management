@@ -8,6 +8,8 @@ require __DIR__ . "/../model/types_chambres_Model.php";
 
 class types_chambres_Controller extends Controller
 {
+
+    public $error;
     function index_types_chambres()
     {
         parent::verifyHomeSession();
@@ -17,13 +19,13 @@ class types_chambres_Controller extends Controller
     function add_types_chambres()
     {
         parent::verifyHomeSession();
-        parent::load_view(__FUNCTION__);
 
         $formData = $this->form_validation();
         if ($formData) {
             types_chambres_Model::insert_types_chambres($formData[0], $formData[1], $formData[2]);
             header("location:/types_chambres");
         }
+        parent::load_view(__FUNCTION__,['error'=>$this->error]);
     }
 
     function delete_types_chambres($id)
@@ -45,16 +47,20 @@ class types_chambres_Controller extends Controller
         parent::verifyHomeSession();
         
         $obj_type_chambre = types_chambres_Model::get_type_chambre($id);
-        parent::load_view(__FUNCTION__, $obj_type_chambre);
+ 
 
         $formData = $this->form_validation($obj_type_chambre->photo_type_chambre);
         if ($formData) {
             types_chambres_Model::modify_types_chambres($id, $formData[0], $formData[1], $formData[2]);
             header("location:/public/types_chambres");
         }
+
+        $data['info_id']=$obj_type_chambre;
+        $data['error']=$this->error;
+        parent::load_view(__FUNCTION__, $data);
     }
 
-    function consulter_type_chambre($id)
+    function consulter_types_chambres($id)
     {
         parent::verifyHomeSession();
         
@@ -97,7 +103,8 @@ class types_chambres_Controller extends Controller
                     $old_photo,
                 ];
             } else {
-                print "<pre>Not valid: The following information is required: type chambre and image</pre>";
+                $this->error="Not valid: The following information is required: type chambre and image";
+                
                 return false;
             }
         }

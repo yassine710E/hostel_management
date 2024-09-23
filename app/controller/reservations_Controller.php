@@ -6,6 +6,8 @@ require __DIR__."/../model/reservations_Model.php";
 
 class reservations_Controller extends Controller
 {
+
+    static $error;
     function index_reservations()
     {
         parent::verifyHomeSession();
@@ -73,23 +75,9 @@ class reservations_Controller extends Controller
 
     }
 
-    function valid_reservation()
-    {
-        if ($_POST['id_chambre']<>"") 
-        {
-          
-           
 
-          $_POST['id_chambre'];
-        }
-        else
-        {
-            return false;
-        }
- 
-    }
 
-    function valider_reservation($id_chambre,$id_client,$Code_reservation,$date_depart,$date_arrivee,$nbr_adultes_enfants)
+    function valider_reservations($id_chambre,$id_client,$Code_reservation,$date_depart,$date_arrivee,$nbr_adultes_enfants,$id_reservation=null)
     {
         
                 $dateDepart = new DateTime($date_depart);
@@ -126,10 +114,19 @@ class reservations_Controller extends Controller
                     $mantant_total,
                     $etat
                 ];
-                print "<pre>";
-                print_r($exe);
-                print "</pre>";
-                reservations_Model::insert_reservation($exe);
+                if ($id_reservation==null) 
+                {
+                    reservations_Model::insert_reservation($exe);
+                }
+                else {
+                    array_push($exe,$id_reservation);
+                    unset($exe[3]);
+                    $exe=array_values($exe);
+                
+
+                    reservations_Model::modify_reservation($exe);
+                    
+                }
                 header("location:/reservations");
             }
               
@@ -142,20 +139,19 @@ class reservations_Controller extends Controller
     {
           parent::verifyHomeSession();
 
-          $page_data=reservations_Model::get_data();
 
+          $form_data=self::form_validation();
 
-          $form_data=self::form_validtion();
-
+          $page_data['info']=reservations_Model::get_data();
 
           if ($form_data) 
           { 
          
 
-            if (reservations_Model::add_reservation($form_data['execute'])) 
+            if (reservations_Model::find_room($form_data['execute'])) 
             {
        
-                $page_data=reservations_Model::add_reservation($form_data['execute']);
+                $page_data['info']=reservations_Model::find_room($form_data['execute']);
 
                 
 
@@ -166,28 +162,21 @@ class reservations_Controller extends Controller
           }
 
             
+          $page_data['error']=self::$error;
 
 
           parent::load_view(__FUNCTION__,$page_data);
 
-                    
+}
 
-
-          
-
-
-          
-
-
-    }
-
-    static function form_validtion()
+    static function form_validation($date_depart="" , $date_arrivee="" ,$nbr_adultes_enfants="" ,$id_type_chambre="")
     {
         if ($_SERVER['REQUEST_METHOD']=="POST") 
         {
             
             $today = date('Y-m-d');
-            if ($_POST['date_depart']<>"" and $_POST['date_arrivee']<>"" and $_POST['nbr_adultes_enfants']<>"" and $_POST['Code_reservation']<>"" ) {
+            if ($_POST['date_depart']<>"" and $_POST['date_arrivee']<>"" and $_POST['nbr_adultes_enfants']<>"" and $_POST['Code_reservation']<>"" ){
+            if($_POST['date_depart']<>$date_depart or $_POST['date_arrivee']<>$date_arrivee or $_POST['nbr_adultes_enfants']<>$nbr_adultes_enfants or $_POST['id_type_chambre']<>$id_type_chambre )  {
                 if ($_POST['date_depart']> $_POST['date_arrivee'] and $_POST['date_arrivee']>=$today ) {
                          
                       return[
@@ -206,18 +195,59 @@ class reservations_Controller extends Controller
                   
                 }
                 else{
-                   print "<pre>LA DATE N'EST PAS LOGIQUE</pre>";
+                   self::$error="LA DATE N'EST PAS LOGIQUE";
                    return false;
                 }
             }
+           else {
+            self::$error="room not found ";
+           }
+        }
             else{
-                   print "<pre>LE FORMULAIRE EST OBLIGATOIRE</pre>";
+                   self::$error="LE FORMULAIRE EST OBLIGATOIRE";
                    return false;
             }
 
         }
     }
 
+    function delete_reservations($id)
+    {
+      parent::verifyHomeSession();
+
+      reservations_Model::delete_reservation($id);
+
+      header("location:/reservations");
+      
+      
+    }
+
+    function modify_reservations($id)
+    {
+       parent::verifyHomeSession();
+
+       $page_data['info']=reservations_Model::get_more_data($id);
+       
+       $obj=$page_data['info']['table_chambre'][0];
+
+       $form_data=self::form_validation($obj->date_depart,$obj->date_arrivee,$obj->nbr_adultes_enfants,$obj->id_type_chambre);
+
+       if ($form_data) 
+       {
+          if (reservations_Model::find_room($form_data['execute'])) 
+          {
+            $page_data['info']=reservations_Model::find_room($form_data['execute']);
+            $page_data['info']['id']=$id;
+          }
+       }
+       $page_data['error']=self::$error;
+       parent::load_view(__FUNCTION__,$page_data);
+
+
+
+
+
+    }
 
 
 

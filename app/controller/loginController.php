@@ -9,17 +9,16 @@ require __DIR__."/../model/loginModel.php";
 // Controller class for handling user login
 class loginController extends Controller
 {
+    public $error;
     // Method to handle user login
-    function login()
+    function _login()
     {
         // Verify if the user session already exists
         parent::verifySession();
 
-        // Load the login view
-        parent::load_view(__FUNCTION__);
-
-        // Validate form input
-        if ($this->form_validation()) 
+        
+         // Validate form input
+        if ($this->form_validation() ) 
         {
             // Check credentials using the login model
             if (loginModel::data_validation($this->form_validation()[0], $this->form_validation()[1]))
@@ -30,7 +29,18 @@ class loginController extends Controller
                 // Redirect to the dashboard after login
                 header("location:/public/dashboard");
             }
+            else
+            {
+                $this->error="User Not Found";
+;    
+            }
         }
+  
+
+       
+         // Load the login view
+         parent::load_view(__FUNCTION__,["error"=>$this->error]);              
+ 
     }
 
     // Method to validate form inputs
@@ -45,9 +55,7 @@ class loginController extends Controller
                 // Return the validated username and password
                 return [$_POST['username'], $_POST['password']];
             } else {
-                // Display an error message if validation fails
-                print "<pre>not valid: fill all info</pre>";
-                
+                $this->error ="Fill All Info";
                 // Return false indicating validation failure
                 return false;
             }    

@@ -8,6 +8,8 @@ require __DIR__ . "/../model/tarifs_chambres_Model.php";
 
 class tarifs_chambres_Controller extends Controller
 {
+    public $error="";
+
     function index_tarifs_chambres()
     {
         parent::verifyHomeSession();
@@ -17,13 +19,14 @@ class tarifs_chambres_Controller extends Controller
     function add_tarifs_chambres()
     {
         parent::verifyHomeSession();
-        parent::load_view(__FUNCTION__);
+        
 
         $formData = $this->form_validation();
         if ($formData) {
             tarifs_chambres_Model::add_tarifs_chambres($formData[0], $formData[1], $formData[2], $formData[3]);
             header("location:/tarifs_chambres");
         }
+        parent::load_view(__FUNCTION__,['error'=>$this->error]);
     }
 
     function delete_tarifs_chambres($id)
@@ -43,13 +46,20 @@ class tarifs_chambres_Controller extends Controller
     function modify_tarifs_chambres($id)
     {
         parent::verifyHomeSession();
-        parent::load_view(__FUNCTION__, tarifs_chambres_Model::get_tarif_chambre($id));
 
         $formData = $this->form_validation();
         if ($formData) {
             tarifs_chambres_Model::modify_tarifs_chambres($id, $formData[0], $formData[1], $formData[2], $formData[3]);
             header("location:/public/tarifs_chambres");
         }
+        
+        $page_data['info_id']= tarifs_chambres_Model::get_tarif_chambre($id);
+        
+        $page_data['error']=$this->error;
+        
+        parent::load_view(__FUNCTION__,$page_data);
+
+
     }
 
     function form_validation()
@@ -71,7 +81,7 @@ class tarifs_chambres_Controller extends Controller
                     $_POST['N_prix_passage']
                 ];
             } else {
-                print "<pre> Form not valid. Please try again. </pre>";
+            $this->error= " Form not valid. Please try again. ";
                 return false;
             }
         }

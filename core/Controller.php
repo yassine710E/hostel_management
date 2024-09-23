@@ -5,9 +5,11 @@ class Controller
 {
     static function load_view($page,$data=[])
     {
-          //self::session_verification();
+          $filename=substr($page,strpos($page,"_")+1);
           
-          require __DIR__."/../app/view/".$page.".php";
+          require __DIR__."/../app/view/".$filename."/".$page.".php";
+
+
 
          
     }

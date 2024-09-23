@@ -10,7 +10,7 @@ require __DIR__."/../model/dashboardModel.php";
 class dashboardController extends Controller
 {
     // Method to display statistics on the dashboard
-    function statistics()
+    function dashboard_statistics()
     {
         // Verify user session for accessing the home page
         parent::verifyHomeSession();

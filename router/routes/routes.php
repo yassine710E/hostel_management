@@ -3,15 +3,15 @@
 
 define("ROUTES",
 [
-    "/"=>["loginController","login"],
+    "/"=>["loginController","_login"],
 
-    "/login"=>['loginController',"login"],
+    "/login"=>['loginController',"_login"],
 
     "/logout"=>['logoutController',"logout"],
 
     "/error"=>['errorController',"not_found"],
 
-    "/dashboard"=>['dashboardController','statistics'],
+    "/dashboard"=>['dashboardController','dashboard_statistics'],
 
     //capacite chambre :
     
@@ -33,7 +33,7 @@ define("ROUTES",
 
     "/types_chambres/modify"=>['types_chambres_Controller',"modify_types_chambres"],
     
-    "/types_chambres/consulter"=>['types_chambres_Controller',"consulter_type_chambre"],
+    "/types_chambres/consulter"=>['types_chambres_Controller',"consulter_types_chambres"],
 
     
     //tarifs Chambres
@@ -66,7 +66,7 @@ define("ROUTES",
 
     "/chambres/delete"=>['chambres_Controller',"delete_chambre"],
 
-    "/chambres/modify"=>['chambres_Controller','modify_chambre'],
+    "/chambres/modify"=>['chambres_Controller','modify_chambres'],
 
     //reservations
     
@@ -74,7 +74,11 @@ define("ROUTES",
     
     "/reservations/add"=>['reservations_Controller',"add_reservations"],
 
-    "/reservations/validee"=>['reservations_Controller','valider_reservation']
+    "/reservations/validee"=>['reservations_Controller','valider_reservations'],
+    
+    "/reservations/modify"=>['reservations_Controller','modify_reservations'],
+
+    "/reservations/delete"=>['reservations_Controller','delete_reservations']
 
     
 

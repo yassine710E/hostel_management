@@ -33,14 +33,10 @@ class reservations_Model extends Model
         if ($PDO) 
         {
             $data=[];
-
-            $stmt=$PDO->prepare("SELECT * FROM reservation 
-                                 INNER JOIN chambre ON reservation.id_chambre=chambre.id_chambre 
-                                 INNER JOIN client ON reservation.id_client=client.id_client");
-            $stmt->execute();
             
-            $data['reservations']=$stmt->fetchAll(PDO::FETCH_OBJ);
-            
+            $reservations=$PDO->prepare("SELECT * FROM reservation INNER JOIN chambre ON reservation.id_chambre=chambre.id_chambre INNER JOIN client ON reservation.id_client=client.id_client");
+            $reservations->execute();
+            $data['reservations']=$reservations->fetchAll(PDO::FETCH_OBJ);
             //select chambre
             $chambre=$PDO->prepare("SELECT * FROM chambre");
             $chambre->execute();
@@ -62,6 +58,19 @@ class reservations_Model extends Model
             return $data;
 
         }
+    }
+    static function get_more_data($id=null)
+    {
+
+            $more_data=[];
+            $more_data=self::get_data();
+            if ($id<>null) 
+            {
+                $more_data['table_chambre']=self::get_reservation($id);
+            }
+
+            return $more_data;
+       
     }
     static function search_reservation($data)
     {
@@ -121,7 +130,7 @@ class reservations_Model extends Model
        }
     }
 
-    static function add_reservation($data)
+    static function find_room($data,$id=null)
     {
         $PDO=self::database_connection();
         if ($PDO) {
@@ -148,8 +157,9 @@ class reservations_Model extends Model
         $chambre->execute($data);
         if ($chambre->rowCount()>0) 
         {
+
             $table_chambre=$chambre->fetchAll(PDO::FETCH_OBJ);
-            $add_data=self::get_data();
+            $add_data=self::get_more_data($id);
             $add_data['table_chambre']=$table_chambre;
             $add_data['date_arrivee']=$data[0];
             $add_data['date_depart']=$data[1];
@@ -161,7 +171,7 @@ class reservations_Model extends Model
         }
         else{
           
-            print "<pre>CHAMBRE AUCUNE TROUVÉE </pre>";
+            reservations_Controller::$error='CHAMBRE AUCUNE TROUVÉE ';
           
           return false;
         }}
@@ -193,6 +203,48 @@ class reservations_Model extends Model
             $var1->execute($data);
         }
  
+    }
+
+    static function delete_reservation($id)
+    {
+        $PDO=self::database_connection();
+        if ($PDO) 
+        {
+            $stmt=$PDO->prepare("DELETE FROM reservation WHERE id_reservation=?");
+            $stmt->execute([$id]);
+
+        }
+    }
+
+    static function get_reservation($id)
+    { 
+       $PDO=self::database_connection();
+
+       if ($PDO) 
+       {
+        $stmt=$PDO->prepare('SELECT * FROM reservation 
+                             INNER JOIN chambre ON reservation.id_chambre=chambre.id_chambre 
+                             INNER JOIN type_chambre ON type_chambre.id_type_chambre=chambre.id_type_chambre 
+                             WHERE reservation.id_reservation=?');
+       
+        $stmt->execute([$id]);
+         
+        $info_chambre=$stmt->fetchAll(PDO::FETCH_OBJ);
+
+        return $info_chambre; 
+        
+       }
+    }
+    static function modify_reservation($data)
+    {
+         $PDO=self::database_connection();
+
+         if ($PDO) 
+         {
+            $var1=$PDO->prepare("UPDATE reservation SET id_chambre=? , id_client=? ,Code_reservation=?, date_arrivee=? , date_depart=? ,nbr_jours=? , nbr_adultes_enfants=? ,mantant_total=? ,Etat=?  WHERE id_reservation=?");
+        
+            $var1->execute($data);
+         }
     }
 }
 

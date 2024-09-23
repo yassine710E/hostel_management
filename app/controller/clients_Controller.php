@@ -9,6 +9,8 @@ require __DIR__.'/../model/clients_Model.php';
 
 class clients_Controller extends Controller
 {
+
+    public $error='';
     function index_clients()
     {
         parent::verifyHomeSession();
@@ -73,7 +75,6 @@ class clients_Controller extends Controller
     {
         parent::verifyHomeSession();
 
-        parent::load_view(__FUNCTION__);
 
         if ($this->form_validation()) 
         {
@@ -81,6 +82,9 @@ class clients_Controller extends Controller
         
             header('location:/clients');
         }
+
+        parent::load_view(__FUNCTION__,['error'=>$this->error]);
+
          
     }
 
@@ -100,13 +104,13 @@ class clients_Controller extends Controller
                }
                else
                {
-                print "<pre>telephone est un numero</pre>";
+                $this->error="telephone est un numero";
                 return false;
                }
             }
             else
             {
-                print "<pre>Les infos suivantes sont obligatoire : Nom du client, Pays de client, Ville de client, Numéro de téléphone de client.</pre>";
+                $this->error="Les infos suivantes sont obligatoire : Nom du client, Pays de client, Ville de client, Numéro de téléphone de client.";
                 return false;
             }
         }
@@ -135,7 +139,8 @@ class clients_Controller extends Controller
     {
         parent::verifyHomeSession();
 
-        parent::load_view(__FUNCTION__,clients_Model::get_client($id));
+ 
+
 
         if ($this->form_validation()) 
         {
@@ -143,6 +148,10 @@ class clients_Controller extends Controller
             header('location:/clients');
 
         }
+        $page_data['info_id'] = clients_Model::get_client($id);
+        $page_data['error'] = $this->error ;
+        parent::load_view(__FUNCTION__,$page_data);
+
 
     }
 

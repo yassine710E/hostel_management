@@ -8,6 +8,7 @@ require __DIR__.'/../model/chambres_Model.php';
 
 class chambres_Controller extends Controller
 {
+    public $error;
     function index_chambres()
     {
        
@@ -38,7 +39,7 @@ class chambres_Controller extends Controller
     {
        parent::verifyHomeSession();
        
-       parent::load_view(__FUNCTION__,chambres_Model::get_capacite_prix_and_type());
+       
 
        if ($this->form_validation()) 
        {
@@ -46,6 +47,10 @@ class chambres_Controller extends Controller
           
           header("location:/chambres");
        }
+       
+       $page_data['info']=chambres_Model::get_capacite_prix_and_type();
+       $page_data['error']=$this->error;
+       parent::load_view(__FUNCTION__,$page_data);
 
 
     }
@@ -67,18 +72,17 @@ class chambres_Controller extends Controller
        }
     }
 
-    function modify_chambre($id)
+    function modify_chambres($id)
     {
        
       parent::verifyHomeSession();
 
        
-      parent::load_view(__FUNCTION__,chambres_Model::get_chambre($id));
 
        
       $chambre=(chambres_Model::get_chambre($id))['chambre'];
 
-     
+      
 
 
        if ($this->form_validation($chambre->photo_chambre)) 
@@ -88,6 +92,11 @@ class chambres_Controller extends Controller
 
         header("location:/chambres");   
        }
+       
+       $page_data=chambres_Model::get_chambre($id);
+       $page_data['error']=$this->error;
+       parent::load_view(__FUNCTION__,$page_data);
+
 
 
     }
@@ -133,10 +142,9 @@ class chambres_Controller extends Controller
                     $old_photo,  // Keep the old photo if a new one is not uploaded
                 ];
             } else {
-                // If required fields are not filled in, print an error message
-                print "<pre>Not valid: The following information is required: Numéro de la chambre, Type de la chambre, Capacité de la chambre, Nombre
-                    de lits, Etage, Nombre des personnes de la chambre (Adultes /Enfants), Prix de
-                    la chambre</pre>";
+                $this->error="Not valid: The following information is required: Numéro de la chambre, Type de la chambre, Capacité de la chambre, Nombre
+                de lits, Etage, Nombre des personnes de la chambre (Adultes /Enfants), Prix de
+                la chambre";
                 return false;
             }
         }

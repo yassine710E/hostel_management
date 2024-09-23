@@ -28,8 +28,6 @@ class loginModel extends Model
             }
             else
             {
-                // Display an error message if no user is found
-                print "<pre>Not valid: User not found. Try again.</pre>";
 
                 // Return false indicating the user was not found
                 return false;
