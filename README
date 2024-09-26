@@ -20,7 +20,7 @@ Le service de réservation des chambres au sein des hôtels suit la démarche su
      - Un exemplaire est conservé dans les archives de l’hôtel.
      - L'autre est remis au client.
 
-![MCD d'Entrée](C:\xampp\htdocs\MCD.png) 
+![MCD d'Entrée](file:///C:/xampp/htdocs/MCD.png) 
 
 ## Objectif du Projet
 
@@ -35,4 +35,4 @@ Le projet a pour objectif le développement d’une application Web de gestion d
 
 1. Cloner le dépôt :
    ```bash
-   git clone https://github.com/yourusername/hotel-reservation-app.git
+   git clone https://github.com/yassine710E/hostel_management
