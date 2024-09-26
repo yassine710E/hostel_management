@@ -65,10 +65,10 @@ class Router
                   }
                   
          }
-        //  else
-        //  {
-        //      header("location:/public/error");
-        //  }
+           else
+           {
+               header("location:/public/error");
+           }
 
         
     }

@@ -78,7 +78,10 @@ define("ROUTES",
     
     "/reservations/modify"=>['reservations_Controller','modify_reservations'],
 
-    "/reservations/delete"=>['reservations_Controller','delete_reservations']
+    "/reservations/delete"=>['reservations_Controller','delete_reservations'],
+
+    //error
+    "/error"=>['errorController',"_Notfound"]
 
     
 

@@ -1,0 +1,38 @@
+# Application de Gestion de Réservation des Chambres d'Hôtel
+
+## Démarche du Service de Réservation
+
+Le service de réservation des chambres au sein des hôtels suit la démarche suivante :
+
+1. **Demande de Réservation** : 
+   - Le client se présente à la réception pour formuler sa demande de réservation.
+   - La réception consulte le plan de l'hôtel pour vérifier le tarif.
+
+2. **Enregistrement de la Réservation** :
+   - Si la demande est favorable, la réception enregistre les identités du client dans :
+     - Le cahier ministériel.
+     - Le registre des clients.
+     - Le plan de l'hôtel pour signaler l'occupation de la réservation, en indiquant le jour et l'heure d'entrée ainsi que le jour de sortie (jour du départ).
+
+3. **Facturation** :
+   - La réception oriente le client à la caisse.
+   - La caisse établit la facture en deux exemplaires : 
+     - Un exemplaire est conservé dans les archives de l’hôtel.
+     - L'autre est remis au client.
+
+![MCD d'Entrée](C:\xampp\htdocs\MCD.png) 
+
+## Objectif du Projet
+
+Le projet a pour objectif le développement d’une application Web de gestion de réservation des chambres d’hôtel. Cette application est un système d'information qui sera utilisée par les hôtels afin d’informatiser le service de réservation de ses chambres.
+
+### Technologies Utilisées
+- **Langage de Programmation** : PHP
+- **Système de Gestion de Bases de Données** : MySQL
+- **API** : PDO
+
+## Installation
+
+1. Cloner le dépôt :
+   ```bash
+   git clone https://github.com/yourusername/hotel-reservation-app.git
