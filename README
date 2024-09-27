@@ -36,3 +36,14 @@ Le projet a pour objectif le développement d’une application Web de gestion d
 1. Cloner le dépôt :
    ```bash
    git clone https://github.com/yassine710E/hostel_management
+
+2.Importer la base de données dans votre serveur local (phpMyAdmin ou autre).
+
+3.Configurer le fichier de connexion à la base de données (config.php) avec vos informations de connexion MySQL.
+
+4.Utilisez les identifiants suivants pour vous connecter en tant qu'administrateur :
+
+Nom d'utilisateur : admin_username
+Mot de passe : admin_password
+
+4.Lancer l'application sur votre serveur local.
